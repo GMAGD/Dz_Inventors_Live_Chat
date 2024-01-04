@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist/static'),
     },
     module: {
         rules: [
@@ -31,7 +31,7 @@ module.exports = {
         }),
     ],
     devServer: {
-        static: path.join(__dirname, 'dist'), // Specify the content base here
+        static: path.join(__dirname, 'dist/static'), // Specify the content base here
         port: 5000,
         hot: true,
         historyApiFallback: true,

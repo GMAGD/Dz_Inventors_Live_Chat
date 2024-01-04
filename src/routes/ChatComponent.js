@@ -52,8 +52,8 @@ const ChatComponent = () => {
         };
 
         const handleMyResponse = (msg) => {
-            if (msg.user_name !== userName + ':') {
-                console.log('playing sound');
+            //this is weird hack cause user id generated in server and user side it's without id 
+            if (msg.user_name.split('#')[0] !== userName) {
                 notificationSoundRef.current.play();
             }
 
