@@ -1,15 +1,6 @@
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
-from flask_caching import Cache
 from flask import request
 from utils.util import user_id_from_ip
-
-limiter = Limiter(
-    get_remote_address,
-    app=None,
-    storage_uri="memory://",
-
-)
+import time
 
 # Keep track of online clients
 online_clients = 0
@@ -25,11 +16,7 @@ block_duration = 30 * 60
 
 
 def configure_chat(socketio):
-    from server import app
-
-    # Set the Flask app for the limiter
-    cache = Cache(app)
-    limiter.app = app
+    from server import app, cache, limiter
 
     @socketio.on('clear_chat')
     def handle_clear_chat(data):
@@ -56,7 +43,7 @@ def configure_chat(socketio):
             attempts = cache.get(user_attempts_key) or 0
             attempts += 1
             cache.set(user_attempts_key, attempts, timeout=block_duration)
-
+            print(cache)
             # If the user reaches 5 incorrect attempts, block for 30 minutes
             if attempts == 5:
                 cache.set(user_attempts_key, 'blocked', timeout=block_duration)
@@ -115,7 +102,8 @@ def configure_chat(socketio):
                         user_id = user_id_from_ip(client_ip)
                         json['user_name'] = json.get(
                             'user_name', '') + f'#{user_id}'
-                        chat_history.append(json)
+                        json['time'] = time.strftime(
+                            '%H:%M', time.localtime(time.time()))
                         socketio.emit('my response', json, namespace='/')
 
             send_online_clients_count()

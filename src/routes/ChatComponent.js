@@ -155,10 +155,16 @@ const ChatComponent = () => {
                 <div className="message_holder">
                     {chatHistory.map((msg, index) => (
                         <div key={index}>
-                            <b style={{ color: '#000' }}>{msg.user_name}</b> {msg.message}
+                            <div className="user-info">
+                                <b style={{ color: '#000' }}>{msg.user_name}</b>
+                                <span className="message-time">{msg.time}</span>
+                            </div>
+                            <p className="message-text">{msg.message}</p>
                         </div>
                     ))}
                 </div>
+
+
 
                 <form onSubmit={handleFormSubmit}>
                     <input

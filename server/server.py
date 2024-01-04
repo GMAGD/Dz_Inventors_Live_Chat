@@ -1,6 +1,9 @@
 
 from flask import Flask, send_from_directory, redirect, url_for, request
 from flask_socketio import SocketIO, rooms
+from flask_caching import Cache
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import os
 from chat import configure_chat
 
@@ -8,11 +11,19 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 app.config['CACHE_TYPE'] = 'simple'  # You can use other cache types
+cache = Cache(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    storage_uri="memory://",
+
+)
 
 # flask routes here and socketio don't mix with other thing
 # create seperate files
+
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')

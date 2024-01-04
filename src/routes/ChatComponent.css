@@ -55,6 +55,53 @@
     margin: 10px;
 }
 
+.message_holder {
+    max-height: 350px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 20px 10px 20px;
+    /* added margin */
+}
+
+.message_holder div {
+    background-color: #ffffff;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.container {
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+}
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.message-time {
+    color: #888;
+    font-size: 0.8em;
+}
+
+.message-text {
+    padding-bottom: 5px;
+    margin-top: 5px;
+    background-color: rgb(255 255 255);
+    padding: 0.8em;
+    border-radius: 0em 3em 3em 3em;
+    box-shadow: 1px 2px 8px 1px rgb(201 201 201 / 53%);
+}
+
+
 /* Media query for mobile responsiveness */
 @media only screen and (max-width: 768px) {
     .chat-container {
