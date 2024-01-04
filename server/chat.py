@@ -104,6 +104,7 @@ def configure_chat(socketio):
                             'user_name', '') + f'#{user_id}'
                         json['time'] = time.strftime(
                             '%H:%M', time.localtime(time.time()))
+                        chat_history.append(json)
                         socketio.emit('my response', json, namespace='/')
 
             send_online_clients_count()
